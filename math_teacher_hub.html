@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Middle School Math — Teacher Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #f5f7fa;
+    color: #1a1f2e;
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  /* Header */
+  .hub-header {
+    background: linear-gradient(135deg, #1a3a5c 0%, #1e5799 60%, #2e86c1 100%);
+    padding: 3rem 2.5rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hub-header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.05);
+  }
+  .hub-header::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: 30%;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+  .header-tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    color: #a8d8f0;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 1rem;
+  }
+  .hub-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(28px, 4vw, 42px);
+    color: #ffffff;
+    line-height: 1.15;
+    margin-bottom: 0.5rem;
+  }
+  .hub-subtitle {
+    font-size: 15px;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 1.5rem;
+  }
+  .header-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .meta-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.9);
+    font-size: 12px;
+    padding: 5px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+
+  /* Announcement */
+  .announcement {
+    background: #fff8e6;
+    border-left: 4px solid #f0a500;
+    margin: 1.5rem 2rem;
+    padding: 1rem 1.25rem;
+    border-radius: 0 8px 8px 0;
+    font-size: 13.5px;
+    color: #5a4000;
+    line-height: 1.6;
+  }
+  .announcement strong { color: #3d2b00; }
+
+  /* Grid */
+  .section-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+    padding: 0 2rem 2.5rem;
+  }
+
+  /* Cards */
+  .card {
+    background: #ffffff;
+    border-radius: 14px;
+    border: 1px solid #e4e8f0;
+    overflow: hidden;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+  .card:hover {
+    box-shadow: 0 8px 30px rgba(30, 87, 153, 0.1);
+    transform: translateY(-2px);
+  }
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 1.1rem 1.25rem;
+    border-bottom: 1px solid #f0f2f7;
+  }
+  .card-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    flex-shrink: 0;
+  }
+  .card-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a1f2e;
+  }
+  .card-body { padding: 0.75rem 1.25rem 1.25rem; }
+
+  /* Sub-labels */
+  .sub-label {
+    font-size: 10px;
+    font-weight: 600;
+    color: #8a94a6;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 12px 0 4px;
+  }
+  .sub-label:first-child { margin-top: 4px; }
+
+  /* Link rows */
+  .link-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid #f4f5f8;
+    text-decoration: none;
+    transition: background 0.15s;
+    border-radius: 4px;
+    margin: 0 -4px;
+    padding-left: 4px;
+    padding-right: 4px;
+  }
+  .link-row:last-of-type { border-bottom: none; }
+  .link-row:hover { background: #f0f5ff; }
+  .link-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .link-name {
+    font-size: 13.5px;
+    color: #1a6db5;
+    flex: 1;
+    font-weight: 500;
+  }
+  .link-tag {
+    font-size: 10px;
+    color: #8a94a6;
+    background: #f4f5f8;
+    padding: 2px 7px;
+    border-radius: 10px;
+    white-space: nowrap;
+  }
+
+  /* Bullet tips */
+  .tip-row {
+    display: flex;
+    gap: 10px;
+    padding: 6px 0;
+    border-bottom: 1px solid #f4f5f8;
+    font-size: 13px;
+    color: #4a5568;
+    line-height: 1.55;
+  }
+  .tip-row:last-child { border-bottom: none; }
+  .tip-arrow { color: #b0bbc8; font-size: 12px; margin-top: 2px; }
+
+  /* Note */
+  .card-note {
+    font-size: 12px;
+    color: #8a94a6;
+    line-height: 1.6;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #f4f5f8;
+  }
+
+  /* Date rows */
+  .date-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #f4f5f8;
+    font-size: 13.5px;
+    color: #1a1f2e;
+  }
+  .date-row:last-child { border-bottom: none; }
+  .date-pill {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .pill-blue { background: #e6f1fb; color: #1a6db5; }
+  .pill-green { background: #e2f5ec; color: #0d7a4a; }
+  .pill-orange { background: #fff0e0; color: #b85c00; }
+
+  /* Footer */
+  .hub-footer {
+    background: #1a3a5c;
+    color: rgba(255,255,255,0.55);
+    font-size: 12px;
+    padding: 1.25rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .hub-footer span { color: rgba(255,255,255,0.75); }
+
+  @media (max-width: 600px) {
+    .hub-header { padding: 2rem 1.25rem 1.75rem; }
+    .section-grid { padding: 0 1rem 2rem; gap: 14px; }
+    .announcement { margin: 1rem; }
+    .hub-footer { padding: 1rem 1.25rem; flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="hub-header">
+  <div class="header-tag">2025 – 2026 School Year</div>
+  <div class="hub-title">Middle School Math<br>Teacher Hub</div>
+  <div class="hub-subtitle">Your central resource for everything math this year</div>
+  <div class="header-meta">
+    <span class="meta-pill">&#128203; Prepared by Raazia Ali</span>
+    <span class="meta-pill">&#128218; Grades 6 · 7 · 8</span>
+    <span class="meta-pill">&#10003; Eureka Math Curriculum</span>
+  </div>
+</div>
+
+<!-- Announcement -->
+<div class="announcement">
+  <strong>Welcome, new teachers!</strong> Eureka Math is the backbone of our curriculum. Explore each section below to get familiar with our resources, tools, and expectations before the school year begins. Reach out to the department head with any questions.
+</div>
+
+<!-- Cards Grid -->
+<div class="section-grid">
+
+  <!-- Curriculum -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#e6f1fb;">📘</div>
+      <div class="card-title">Curriculum</div>
+    </div>
+    <div class="card-body">
+      <div class="sub-label">Common Core</div>
+      <a class="link-row" href="https://drive.google.com/file/d/0B2Fgvfl9VpfCeVlDdU9nUWoyTnRJd09WUHF6YXhIbWJPUXZB/view?usp=sharing&resourcekey=0-2tNat9MgCrn6gcCcTv1R5g" target="_blank">
+        <div class="link-dot" style="background:#2e86c1;"></div>
+        <span class="link-name">Common Core MS Math</span>
+        <span class="link-tag">Drive</span>
+      </a>
+      <a class="link-row" href="https://www.thecorestandards.org/Math/" target="_blank">
+        <div class="link-dot" style="background:#2e86c1;"></div>
+        <span class="link-name">Common Core Standards</span>
+        <span class="link-tag">External</span>
+      </a>
+      <a class="link-row" href="https://drive.google.com/drive/folders/17vcPuDsi4rmNfsw7bVzYHsoBLQWqrddy?usp=sharing" target="_blank">
+        <div class="link-dot" style="background:#2e86c1;"></div>
+        <span class="link-name">Grade 6 — Common Core</span>
+        <span class="link-tag">Drive</span>
+      </a>
+      <a class="link-row" href="https://drive.google.com/drive/folders/1SjOE7g16Iy1ZhxZVjiHCJ9994l9A9gEW?usp=sharing" target="_blank">
+        <div class="link-dot" style="background:#2e86c1;"></div>
+        <span class="link-name">Grade 7 — Common Core</span>
+        <span class="link-tag">Drive</span>
+      </a>
+      <a class="link-row" href="https://drive.google.com/drive/folders/1dRhaKyqNbo1mN067ITwDcNWQ_eOa4sDS?usp=sharing" target="_blank">
+        <div class="link-dot" style="background:#2e86c1;"></div>
+        <span class="link-name">Grade 8 — Common Core</span>
+        <span class="link-tag">Drive</span>
+      </a>
+      <div class="sub-label">Scope &amp; Sequence</div>
+      <a class="link-row" href="https://docs.google.com/spreadsheets/d/1PuMwYYtzk3z5FTvPNVz-WDrYOHYbpbYm8705fye5nGE/edit?usp=sharing" target="_blank">
+        <div class="link-dot" style="background:#2e86c1;"></div>
+        <span class="link-name">ASD Middle School Scope &amp; Sequence</span>
+        <span class="link-tag">Spreadsheet</span>
+      </a>
+      <div class="sub-label">Standards &amp; Teaching Guide</div>
+      <a class="link-row" href="https://docs.google.com/presentation/d/1yYwIKwrbmEFPluJRlFPjFUeXuJvvFRGJp0k9M7Ss7cM/edit?usp=sharing" target="_blank">
+        <div class="link-dot" style="background:#2e86c1;"></div>
+        <span class="link-name">Math Practices</span>
+        <span class="link-tag">Slides</span>
+      </a>
+      <a class="link-row" href="https://www.livebinders.com/shelf/search_author?terms=ermander" target="_blank">
+        <div class="link-dot" style="background:#2e86c1;"></div>
+        <span class="link-name">Erma's Live Binder</span>
+        <span class="link-tag">External</span>
+      </a>
+      <div class="card-note">Eureka Math is the backbone of our curriculum. Additional resources are incorporated to bring the best learning experience to students.</div>
+    </div>
+  </div>
+
+  <!-- Curriculum Maps -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#eaf3de;">🗺️</div>
+      <div class="card-title">Curriculum Maps</div>
+    </div>
+    <div class="card-body">
+      <a class="link-row" href="https://docs.google.com/document/d/11bQX6Q6noWEgTLOdCcTHCaAQtwHUqA0jdEW74kOaFeA/edit?usp=sharing" target="_blank">
+        <div class="link-dot" style="background:#27ae60;"></div>
+        <span class="link-name">Grade 6 Curriculum Map</span>
+        <span class="link-tag">Doc</span>
+      </a>
+      <a class="link-row" href="https://docs.google.com/document/d/19fxzCWsssSTl1mEAZNAbNgzxmxKYdtRrhH2Tfvkgz24U/edit?usp=sharing" target="_blank">
+        <div class="link-dot" style="background:#27ae60;"></div>
+        <span class="link-name">Grade 7 Curriculum Map</span>
+        <span class="link-tag">Doc</span>
+      </a>
+      <a class="link-row" href="https://docs.google.com/document/d/1oBSVp4WpewOJbQwTOfjuUsGQYIoByfeKXMeogHa2-SM/edit?usp=sharing" target="_blank">
+        <div class="link-dot" style="background:#27ae60;"></div>
+        <span class="link-name">Grade 8 Curriculum Map</span>
+        <span class="link-tag">Doc</span>
+      </a>
+      <div class="card-note">Maps developed for 25–26. Will be updated at end of year to be ready for 26–27.</div>
+    </div>
+  </div>
+
+  <!-- Math Focus Teaching -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#eeedfe;">🎯</div>
+      <div class="card-title">Math Focus Teaching</div>
+    </div>
+    <div class="card-body">
+      <a class="link-row" href="https://drive.google.com/drive/folders/17xpDILV171btZkGcjVhnq_-86OGRKQUv?usp=sharing" target="_blank">
+        <div class="link-dot" style="background:#7f77dd;"></div>
+        <span class="link-name">Math Focus Teaching Folder</span>
+        <span class="link-tag">Drive</span>
+      </a>
+      <div class="tip-row"><span class="tip-arrow">→</span><span>Concept maps developed for middle school</span></div>
+      <div class="tip-row"><span class="tip-arrow">→</span><span>K–8 progression that leads to Algebra 1</span></div>
+      <div class="tip-row"><span class="tip-arrow">→</span><span>Unit plans for all middle school grades</span></div>
+    </div>
+  </div>
+
+  <!-- Supporting Resources -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#faeeda;">🛠️</div>
+      <div class="card-title">Supporting Resources &amp; Tools</div>
+    </div>
+    <div class="card-body">
+      <a class="link-row" href="https://www.openupresources.org/" target="_blank">
+        <div class="link-dot" style="background:#e67e22;"></div>
+        <span class="link-name">OpenUp Resources</span>
+        <span class="link-tag">Lesson planning</span>
+      </a>
+      <a class="link-row" href="https://illustrativemathematics.org/" target="_blank">
+        <div class="link-dot" style="background:#e67e22;"></div>
+        <span class="link-name">Illustrative Math</span>
+        <span class="link-tag">Lesson planning</span>
+      </a>
+      <a class="link-row" href="https://www.khanacademy.org" target="_blank">
+        <div class="link-dot" style="background:#e67e22;"></div>
+        <span class="link-name">Khan Academy</span>
+        <span class="link-tag">Student perspective</span>
+      </a>
+      <a class="link-row" href="https://www.ixl.com/" target="_blank">
+        <div class="link-dot" style="background:#e67e22;"></div>
+        <span class="link-name">IXL</span>
+        <span class="link-tag">MAP follow-up &amp; practice</span>
+      </a>
+      <a class="link-row" href="https://www.deltamath.com/" target="_blank">
+        <div class="link-dot" style="background:#e67e22;"></div>
+        <span class="link-name">DeltaMath</span>
+        <span class="link-tag">Tool</span>
+      </a>
+      <a class="link-row" href="https://gizmos.explorelearning.com/" target="_blank">
+        <div class="link-dot" style="background:#e67e22;"></div>
+        <span class="link-name">GIZMOS (Explore Learning)</span>
+        <span class="link-tag">Virtual labs</span>
+      </a>
+      <a class="link-row" href="https://www.desmos.com/" target="_blank">
+        <div class="link-dot" style="background:#e67e22;"></div>
+        <span class="link-name">Desmos</span>
+        <span class="link-tag">Graphing</span>
+      </a>
+      <a class="link-row" href="https://www.geogebra.org/" target="_blank">
+        <div class="link-dot" style="background:#e67e22;"></div>
+        <span class="link-name">GeoGebra</span>
+        <span class="link-tag">Tool</span>
+      </a>
+      <a class="link-row" href="https://wayground.com/" target="_blank">
+        <div class="link-dot" style="background:#e67e22;"></div>
+        <span class="link-name">Quizzes (Wayground)</span>
+        <span class="link-tag">Formative assessment</span>
+      </a>
+      <a class="link-row" href="https://edpuzzle.com/" target="_blank">
+        <div class="link-dot" style="background:#e67e22;"></div>
+        <span class="link-name">Edpuzzle</span>
+        <span class="link-tag">Tool</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Rubric & I CAN -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#e2f5ec;">✅</div>
+      <div class="card-title">Rubric &amp; I CAN Statements</div>
+    </div>
+    <div class="card-body">
+      <a class="link-row" href="https://drive.google.com/drive/folders/1PPfYoQ9KUS5DbT2z5JvLAs4jcz6JCY_f?usp=sharing" target="_blank">
+        <div class="link-dot" style="background:#27ae60;"></div>
+        <span class="link-name">I CAN Statements — All Grades</span>
+        <span class="link-tag">Drive</span>
+      </a>
+      <a class="link-row" href="https://docs.google.com/document/d/10RqpmHr6q6ToXEO1znq72bfnOAinPTdLbaZqWYoIWjg/edit?usp=sharing" target="_blank">
+        <div class="link-dot" style="background:#27ae60;"></div>
+        <span class="link-name">MS Consolidated Rubric</span>
+        <span class="link-tag">Doc</span>
+      </a>
+      <div class="card-note">I CAN statements cover Grades 6, 7, and 8 for all standards. The rubric top section shows the standard being assessed and its corresponding I CAN statements.</div>
+    </div>
+  </div>
+
+  <!-- Reassessment & Competitions -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon" style="background:#faece7;">🏆</div>
+      <div class="card-title">Reassessment &amp; Competitions</div>
+    </div>
+    <div class="card-body">
+      <div class="sub-label">Reassessment</div>
+      <a class="link-row" href="https://docs.google.com/forms/d/1ACaopWA3PtypxM2NmHUUJy7fnD6c7U5_eFgvqxKeJ4c/edit" target="_blank">
+        <div class="link-dot" style="background:#e74c3c;"></div>
+        <span class="link-name">Reassessment Contract</span>
+        <span class="link-tag">Form</span>
+      </a>
+      <div class="card-note" style="border-top:none; padding-top:0; margin-top:4px; margin-bottom:8px;">Students scoring Emerging or Developing may complete a contract to be eligible for a retake.</div>
+
+      <div class="sub-label">Competition Registration</div>
+      <a class="link-row" href="https://docs.google.com/forms/d/17pqi5oNtxEVfNl9GCk60nQMx4EEFJXhrsnxK8m8Fk4/edit" target="_blank">
+        <div class="link-dot" style="background:#e74c3c;"></div>
+        <span class="link-name">Registration Form — Gauss</span>
+        <span class="link-tag">Form</span>
+      </a>
+      <a class="link-row" href="https://docs.google.com/forms/d/1Liw-ltj9O4csv35YVMD3BxhtmycvXoG4vNvGp4D0SBM/edit" target="_blank">
+        <div class="link-dot" style="background:#e74c3c;"></div>
+        <span class="link-name">Registration Form — AMC 8</span>
+        <span class="link-tag">Form</span>
+      </a>
+      <a class="link-row" href="https://drive.google.com/drive/folders/18S_9-FkdcOcSaZxo_3kICu2VU9CKFrBY?usp=sharing" target="_blank">
+        <div class="link-dot" style="background:#e74c3c;"></div>
+        <span class="link-name">Math Competitions Info Folder</span>
+        <span class="link-tag">Drive</span>
+      </a>
+
+      <div class="sub-label">Competition Schedule</div>
+      <div class="date-row"><span>AMC 8</span><span class="date-pill pill-blue">January</span></div>
+      <div class="date-row"><span>MathCounts</span><span class="date-pill pill-green">Sept – Feb</span></div>
+      <div class="date-row"><span>Gauss Competition</span><span class="date-pill pill-orange">May</span></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Footer -->
+<div class="hub-footer">
+  <span>Middle School Math Department — Teacher Hub · 2025–2026</span>
+  <span>Prepared by Raazia Ali</span>
+</div>
+
+</body>
+</html>
